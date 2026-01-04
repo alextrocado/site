@@ -1,5 +1,4 @@
-
-import { AcademicPublication, Project, AppItem } from './types';
+import { AcademicPublication, Project, AppItem } from './types.ts';
 
 export const ACADEMIC_PUBLICATIONS: AcademicPublication[] = [
   {
