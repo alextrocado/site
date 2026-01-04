@@ -1,1 +1,1 @@
-// Not needed for ESM.sh run environment
+// Configuração não necessária para o ambiente esm.sh/run

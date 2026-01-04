@@ -35,25 +35,28 @@
 </head>
 <body>
     <div id="error-display">
-        <h1 style="color: #ff4444; font-size: 18px; margin-bottom: 15px; letter-spacing: 2px; font-weight: bold;">ERRO DE CARREGAMENTO</h1>
+        <h1 style="color: #ff4444; font-size: 18px; margin-bottom: 15px; letter-spacing: 2px; font-weight: bold;">ERRO DE SISTEMA</h1>
         <p id="error-text" style="color: #666; font-size: 12px; max-width: 500px; margin-bottom: 25px; line-height: 1.6; font-family: monospace;"></p>
-        <button onclick="location.reload()" style="background: white; color: black; padding: 10px 20px; border: none; cursor: pointer; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Recarregar</button>
+        <button onclick="location.reload()" style="background: white; color: black; padding: 10px 20px; border: none; cursor: pointer; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Tentar Novamente</button>
     </div>
 
     <div id="root">
         <div id="loader" style="height: 100vh; display: flex; align-items: center; justify-content: center; background: #000;">
-            <div class="loading-text">A iniciar sistema...</div>
+            <div class="loading-text">A carregar portefólio...</div>
         </div>
     </div>
 
     <script>
-        // Injeção de ambiente essencial
+        // Define o ambiente antes de carregar os módulos
         window.process = { env: { API_KEY: "" } };
         
         window.onerror = function(msg, url, line) {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('error-display').style.display = 'flex';
-            document.getElementById('error-text').innerText = msg + "\nLocal: " + url + ":" + line;
+            const loader = document.getElementById('loader');
+            if (loader) loader.style.display = 'none';
+            const errDisp = document.getElementById('error-display');
+            if (errDisp) errDisp.style.display = 'flex';
+            const errText = document.getElementById('error-text');
+            if (errText) errText.innerText = msg + "\nLocal: " + url + ":" + line;
         };
     </script>
 
