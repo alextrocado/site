@@ -3,9 +3,11 @@ import { GoogleGenAI } from "@google/genai";
 import { BIO, ACADEMIC_PUBLICATIONS } from "../constants.ts";
 
 export const getAIResponse = async (userInput: string) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+  // Fix: Initialize GoogleGenAI using the mandatory named parameter with direct process.env.API_KEY access
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
+    // Basic Text Task: Use gemini-3-flash-preview as per guidelines
     const model = 'gemini-3-flash-preview';
     
     const context = `
@@ -31,6 +33,7 @@ export const getAIResponse = async (userInput: string) => {
       3. Maintain the balance between the scientist and the artist.
     `;
 
+    // Fix: Use generateContent with model and contents as specified in the SDK guidelines, passing instructions in the config
     const response = await ai.models.generateContent({
       model: model,
       contents: userInput,
@@ -40,6 +43,7 @@ export const getAIResponse = async (userInput: string) => {
       },
     });
 
+    // Fix: Access the text property directly on the GenerateContentResponse object
     return response.text || "I'm sorry, I couldn't process your request.";
   } catch (error) {
     console.error("Gemini API Error:", error);

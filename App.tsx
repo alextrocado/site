@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { PublicationGrid } from './components/PublicationGrid.tsx';
 import { AppsView } from './components/AppsView.tsx';
+import { AIAssistant } from './components/AIAssistant.tsx';
 import { AppSection } from './types.ts';
 import { Mail } from 'lucide-react';
 
@@ -82,6 +83,9 @@ const App: React.FC = () => {
           </div>
         </main>
       )}
+
+      {/* Fix: Rendering the AIAssistant component to make it available in the UI */}
+      <AIAssistant />
 
       <footer className="py-24 border-t border-zinc-900/50 mt-20 px-8 text-center bg-black">
         <p className="text-[9px] tracking-[0.5em] uppercase text-zinc-700">

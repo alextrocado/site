@@ -1,8 +1,16 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 
-console.log("React: A iniciar montagem da aplicação...");
+// Fix: Declaring siteLoaded on the global Window interface to resolve TypeScript property access errors
+declare global {
+  interface Window {
+    siteLoaded?: () => void;
+  }
+}
+
+console.log("REACT: A montar componentes...");
 
 const rootElement = document.getElementById('root');
 
@@ -16,26 +24,26 @@ if (rootElement) {
       </React.StrictMode>
     );
     
-    console.log("React: Renderização solicitada com sucesso.");
+    // Notifica o watchdog no index.html que correu tudo bem
+    if (window.siteLoaded) window.siteLoaded();
 
     const hideLoader = () => {
       const loader = document.getElementById('loader');
       if (loader) {
-        loader.style.transition = 'opacity 0.5s ease';
         loader.style.opacity = '0';
         setTimeout(() => {
-          if (loader.parentNode) loader.remove();
-          console.log("UI: Loader removido.");
+          loader.style.display = 'none';
+          console.log("UI: Ecrã de carregamento removido.");
         }, 500);
       }
     };
 
-    // Remove o loader após um curto espaço de tempo
-    setTimeout(hideLoader, 500);
+    // Pequeno delay para garantir que o render inicial terminou
+    setTimeout(hideLoader, 300);
   } catch (err) {
-    console.error("Erro fatal durante o render:", err);
+    console.error("REACT: Erro fatal durante a montagem:", err);
     throw err;
   }
 } else {
-  console.error("Erro crítico: Elemento #root não encontrado no DOM.");
+    console.error("DOM: Contentor #root não encontrado.");
 }
